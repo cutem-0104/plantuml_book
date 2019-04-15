@@ -1,0 +1,50 @@
+@startuml file1
+Bob->Alice : hello
+@enduml
+
+@startuml
+' comment
+/'
+comment
+'/
+class TypeA {
+  property
+  staticProperty {static}
+  method()
+  staticMethod() {static}
+}
+
+abstract TypeB {
+  method()
+  abstractMethod() {abstract}
+}
+
+interface TypeC {
+  abstractMethod() {abstract}
+}
+
+class TypeD<<(T, #FF7700)>> {
+  method()
+}
+@enduml
+
+'単方向関連
+@startuml
+/'
+BoardはDateTime型のdeadlineを持つ
+BoardはString型のtitleを持つ
+BoardはPost型のpostsを持つ
+'/
+Board "1" --> "*" Post : posts
+DateTime "0..1" <- "*" Board : deadline
+Board "*" -> "1" String : title
+@enduml
+
+'関連と属性
+@startuml
+class Board {
+  + deadline: DateTime [0..1]
+  + title: String [1]
+  + posts: Post [*] {posted}
+}
+@enduml
