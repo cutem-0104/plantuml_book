@@ -1,4 +1,4 @@
-@startuml file1
+@startuml chapter3
 Bob->Alice : hello
 @enduml
 
@@ -28,21 +28,24 @@ class TypeD<<(T, #FF7700)>> {
 }
 @enduml
 
-'単方向関連
-@startuml
-/'
-BoardはDateTime型のdeadlineを持つ
-BoardはString型のtitleを持つ
-BoardはPost型のpostsを持つ
-'/
+@startuml 単方向関連
+  /'
+  BoardはDateTime型のdeadlineを持つ
+  BoardはString型のtitleを持つ
+  BoardはPost型のpostsを持つ
+  '/
 Board "1" --> "*" Post : posts
 DateTime "0..1" <- "*" Board : deadline
 Board "*" -> "1" String : title
 @enduml
 
-'関連と属性
-@startuml
+@startuml 関連と属性
 class Board {
+  /'
+  Boardはdeadlineを1つ持つ場合と持たない場合がある
+  Boardは必ず1つのtitleを持つ
+  Boardはpostsを持たない場合と上限なく持つ場合がある
+  '/
   + deadline: DateTime [0..1]
   + title: String [1]
   + posts: Post [*] {posted}
