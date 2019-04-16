@@ -88,7 +88,24 @@ FileLogger .|> LoggerInterface
 
 @startuml 依存関係
 'UserServiceクラスはArrayAccessインターフェースとUserクラスを利用している
+'※依存関係が双方向にならないように注意する
 interface ArrayAccess
 UserService ..> User : <<use>>
 UserService ..> ArrayAccess : <<use>>
+@enduml
+
+@startuml ノート
+'ノートの代わりにクラス図の外にコメントを書くことも検討する
+class DBConnection
+note right of DBConnection
+データベース接続
+end note
+@enduml
+
+@startuml 複数要素にリンクしたノート
+note as LoggerNote
+ロガー
+end note
+SkackLogger .. LoggerNote
+FileLogger .. LoggerNote
 @enduml
