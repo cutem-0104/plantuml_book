@@ -51,3 +51,44 @@ class Board {
   + posts: Post [*] {posted}
 }
 @enduml
+
+@startuml 双方向関連
+' MotorcycleはPerson型のownerを0－1つ持つ
+' 所有する・されるの双方向関連がある
+Person "owner\n0..1" <-> "*" Motorcycle
+@enduml
+
+@startuml 動詞を用いた関連名
+' MotorcycleはPerson型のownerを0－1つ持つ
+' PersonはMotorcycleをOwnsしている
+Person "0..1" - "*" Motorcycle : Owns >
+@enduml
+
+@startuml 集約
+Person "*" o-> "*" Motorcycle
+@enduml
+
+@startuml コンポジション
+'コンポジションはインスタンスを複数のインスタンスに所有させることができない
+'Sushiは1つのDishにだけ乗ることができる
+Dish "1" *-> Sushi
+@enduml
+
+@startuml 汎化
+'UserTestクラスはTestCaseクラスを継承している
+UserTest -|> TestCase
+@enduml
+
+@startuml 実装
+'FileLoggerはLoggerInterfaceを実装している
+interface LoggerInterface
+class FileLogger
+FileLogger .|> LoggerInterface
+@enduml
+
+@startuml 依存関係
+'UserServiceクラスはArrayAccessインターフェースとUserクラスを利用している
+interface ArrayAccess
+UserService ..> User : <<use>>
+UserService ..> ArrayAccess : <<use>>
+@enduml
