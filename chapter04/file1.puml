@@ -1,0 +1,41 @@
+@startuml 参加者とライフライン
+' インスタンスを示す長方形を参加者
+' 長方形の下に伸びる破線はライフラインと呼ぶ
+hide footbox
+participant "an Apple"
+@enduml
+
+@startuml 型名付きのインスタンス
+hide footbox
+participant ":DateTime" as now
+participant "alice: User" as alice
+participant "bob: User" as bob
+@enduml
+
+@startuml 同期メッセージ
+hide footbox
+participant ":Controller" as Controller
+participant ":Request" as Request
+participant ":Response" as Response
+
+' 見出されたメッセージ found message
+[-> Controller : printAction(request, response)
+' 実行定義 execution specification Controller活性化
+activate Controller
+' 引数として渡されているRequestクラスのgetHeaderメソッドを呼び出す
+Controller -> Request: getHeader
+activate Request
+' リターンメッセージ return message
+Controller <<-- Request : header
+deactivate Request
+
+Controller -> Response : write
+activate Response
+Controller <<-- Response
+deactivate Response
+
+' Responseを呼び出し元に返す
+[<<-- Controller : Response
+' Controller非活性化
+deactivate Controller
+@enduml
